@@ -2,16 +2,16 @@ import os
 import pandas
 import pytest
 import datetime
-from opencdms import MidasOpen
+from opencdms import MidasPgOpen
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_URL = os.path.join(BASE_DIR, "data")
+DB_URL = os.path.join(BASE_DIR, "opencdms_test_data","data")
 
 
 @pytest.fixture
 def session():
-    return MidasOpen(connection_string=DB_URL)
+    return MidasPgOpen(connection_string=DB_URL)
 
 
 def test_should_return_hourly_wind_obs(session):
@@ -61,6 +61,7 @@ def test_should_return_hourly_rain_prcp_amt_obs(session):
 
 
 def test_should_return_daily_rain_prcp_amt_obs(session):
+
     filters = {
         'src_id': 838,
         'period': 'daily',
@@ -71,16 +72,15 @@ def test_should_return_daily_rain_prcp_amt_obs(session):
     obs = session.obs(**filters)
 
     assert isinstance(obs, pandas.DataFrame)
-
     assert (
         datetime.datetime.strptime(
-            obs.iloc[1]["ob_date"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[2]["ob_date"], '%Y-%m-%d %H:%M:%S'
         )
         -
         datetime.datetime.strptime(
-            obs.iloc[0]["ob_date"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[1]["ob_date"], '%Y-%m-%d %H:%M:%S'
         )
-    ).seconds == 3600 * 24
+    ).days == 1
 
 
 def test_should_return_daily_temperature_obs(session):
@@ -97,13 +97,13 @@ def test_should_return_daily_temperature_obs(session):
 
     assert (
         datetime.datetime.strptime(
-            obs.iloc[1]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[2]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
         )
         -
         datetime.datetime.strptime(
-            obs.iloc[0]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[1]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
         )
-    ).seconds == 3600 * 24
+    ).days == 1
 
 
 def test_should_return_daily_radiation_obs(session):
@@ -120,13 +120,13 @@ def test_should_return_daily_radiation_obs(session):
 
     assert (
         datetime.datetime.strptime(
-            obs.iloc[1]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[2]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
         )
         -
         datetime.datetime.strptime(
-            obs.iloc[0]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[1]["ob_end_time"], '%Y-%m-%d %H:%M:%S'
         )
-    ).seconds == 3600 * 24
+    ).seconds == 3600
 
 
 def test_should_return_daily_soil_temperature_obs(session):
@@ -143,13 +143,13 @@ def test_should_return_daily_soil_temperature_obs(session):
 
     assert (
         datetime.datetime.strptime(
-            obs.iloc[1]["ob_time"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[2]["ob_time"], '%Y-%m-%d %H:%M:%S'
         )
         -
         datetime.datetime.strptime(
-            obs.iloc[0]["ob_time"], '%Y-%m-%d %H:%M:%S'
+            obs.iloc[1]["ob_time"], '%Y-%m-%d %H:%M:%S'
         )
-    ).seconds == 3600 * 24
+    ).days == 1
 
 
 
