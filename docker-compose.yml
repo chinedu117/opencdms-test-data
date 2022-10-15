@@ -12,7 +12,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
     networks:
-      - opencdms
+      opencdms:
 
 
   # A PostgreSQL instance containing schemas from CDMSs that use PostgreSQL (currently clide and wmdr)
@@ -26,7 +26,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
     networks:
-      - opencdms
+      opencdms:
 
 
   # A MariaDB instance containing schemas from CDMSs that use MySQL/MariaDB (currently climsoft-4.1.1 and mch-english)
@@ -40,7 +40,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
     networks:
-      - opencdms
+      opencdms:
 
   # An Oracle Express Edition instance containing schemas from CDMSs that use Oracle (currently midas-core)
   oracle:
@@ -53,7 +53,7 @@ services:
     environment:
       - ORACLE_ALLOW_REMOTE=true
     networks:
-      - opencdms
+      opencdms:
 
   # A PostgreSQL 13 instance containing the clide schema (comparable to how CliDE is used in production)
   clide:
@@ -66,7 +66,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
     networks:
-      - opencdms
+      opencdms:
 
   # A MariaDB 10.1 instance containing the climsoft-4.1.1 schema (comparable to how Climsoft is used in production)
   climsoft-4.1.1:
@@ -79,7 +79,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
     networks:
-      - opencdms
+      opencdms:
 
   # Latest MariaDB instance containing the mch-english schema (comparable to how MCH is used in production)
   mch-english:
@@ -93,7 +93,7 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_USER=root
     networks:
-      - opencdms
+      opencdms:
 
   # An Oracle Express Edition instance containing schemas from CDMSs that use Oracle (currently midas-core)
   midas:
@@ -106,7 +106,7 @@ services:
     environment:
       - ORACLE_ALLOW_REMOTE=true
     networks:
-      - opencdms
+      opencdms:
 
   # A TimescaleDB / PostGIS instance containing the wmdr schema
   wmdr:
@@ -119,10 +119,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
     networks:
-      - opencdms
+      opencdms:
+
 networks:
   opencdms:
-    driver: bridge
-
-
-
