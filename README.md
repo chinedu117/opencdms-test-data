@@ -56,8 +56,8 @@ There are three ways to test OpenCDMS with a database:
    | mysql | **2**3306 |
    | oracle | **2**1521 |
    | clide | **3**5432 |
-   | climsoft-4.1.1 | 3308 |
-   | mch-english | 3306 |
+   | climsoft-4.1.1 |  **3**3308 |
+   | mch-english |  **3**3306 |
    | midas | **3**1521 |
    | wmdr | **3**5433 |
    
