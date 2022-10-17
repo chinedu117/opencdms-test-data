@@ -121,5 +121,19 @@ services:
     networks:
       opencdms:
 
+  surface:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.surface
+    container_name: surface
+    ports:
+      - "45432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./conf/postgres.conf:/etc/postgresql/postgresql.conf
+    networks:
+      opencdms:
+      
 networks:
   opencdms:

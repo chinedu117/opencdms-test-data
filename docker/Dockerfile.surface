@@ -1,0 +1,12 @@
+FROM timescale/timescaledb-ha:pg13.8-ts2.8.1-latest
+
+COPY ./schemas/surface/ddl.sql /docker-entrypoint-initdb.d/1.sql
+COPY ./schemas/surface/wx_datasource.sql /docker-entrypoint-initdb.d/2.sql
+COPY ./schemas/surface/wx_country.sql /docker-entrypoint-initdb.d/3.sql
+COPY ./schemas/surface/wx_stationprofile.sql /docker-entrypoint-initdb.d/4.sql
+COPY ./schemas/surface/wx_stationcommunication.sql /docker-entrypoint-initdb.d/5.sql
+COPY ./schemas/surface/wx_station.sql /docker-entrypoint-initdb.d/6.sql
+
+COPY ./schemas/surface/raw_data.csv /raw_data/station_id_14_108.csv
+
+COPY ./scripts/entrypoints/surface.sh /docker-entrypoint-initdb.d/7.sh
