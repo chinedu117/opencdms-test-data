@@ -27,7 +27,7 @@ def start_db(containers: str):
     container_port = {
         "postgres": 5432,
         "mariadb": 3306,
-        "opencdms-db": 35432,
+        "opencdmsdb": 35432,
         "postgresql": 25432,
         "mysql": 23306,
         "oracle": 21521,
