@@ -33,6 +33,14 @@ services:
       - "35432:5432"
     environment:
       - POSTGRES_PASSWORD=password
+      - PGUSER=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+      interval: 10s
+      timeout: 60s
+      retries: 5
+      start_period: 20s 
     networks:
       opencdms:
 
