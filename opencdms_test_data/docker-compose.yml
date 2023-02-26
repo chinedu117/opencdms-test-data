@@ -9,8 +9,15 @@ services:
       ports:
           - "5432:5432"
       environment:
-          - POSTGRES_PASSWORD=password
-
+        - POSTGRES_PASSWORD=password
+        - PGUSER=postgres
+        - POSTGRES_DB=postgres
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+        interval: 10s
+        timeout: 10s
+        retries: 5
+        start_period: 20s 
 
   # A MariaDB instance containing schemas from CDMSs that use MySQL/MariaDB (currently climsoft-4.1.1 and mch-english)
   mariadb:
@@ -38,7 +45,7 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
       interval: 10s
-      timeout: 60s
+      timeout: 10s
       retries: 5
       start_period: 20s 
     networks:
@@ -54,6 +61,14 @@ services:
       - "25432:5432"
     environment:
       - POSTGRES_PASSWORD=password
+      - PGUSER=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s 
     networks:
       opencdms:
 
@@ -146,6 +161,14 @@ services:
       - "35434:5432"
     environment:
       - POSTGRES_PASSWORD=password
+      - PGUSER=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s 
     networks:
       opencdms:
 
@@ -158,6 +181,14 @@ services:
       - "45432:5432"
     environment:
       - POSTGRES_PASSWORD=password
+      - PGUSER=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s 
     volumes:
       - ./conf/postgres.conf:/etc/postgresql/postgresql.conf
     networks:
